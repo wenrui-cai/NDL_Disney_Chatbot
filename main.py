@@ -5,6 +5,7 @@ from slackclient import SlackClient
 import credentials
 import json
 import random
+import tf_idf
 
 
 # instantiate Slack client
@@ -15,6 +16,18 @@ starterbot_id = None
 # constants
 RTM_READ_DELAY = 1 # 1 second delay between reading from RTM
 MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
+
+def reset_bot_state():
+    with open("bot_state.json", "r") as jsonFile:
+        bot_state = json.load(jsonFile)
+        bot_state["character_choice"] = ""
+        bot_state["next_response"] = ""
+        bot_state["next_response_Flag"] = "False"
+    with open("bot_state.json", "w") as jsonFile:
+        json.dump(bot_state, jsonFile)
+
+
+reset_bot_state()
 
 def parse_bot_commands(slack_events):
     """
@@ -68,14 +81,32 @@ def handle_command(command, channel):
         bot_state["next_response_Flag"] = "False"
     else:
         if bot_state["character_choice"] == "simba":
-            response = retrive_simba_response(command)
+            response = retrieve_simba_response(command)
         else:
-            response = retrive_scar_response(command)
+            response = retrieve_scar_response(command)
+    if response is None:
+        response = tf_idf.previous_chats(command)
+        if response == "":
+            response = None
+        elif response == "live_chat":
+            response = None
+        #resub <character_name> token with current personality name
+        elif "<character_name>" in response:
+            response = response.split("<character_name>")
+            rebuild = ""
+            for parts in response[:-1]:
+                rebuild += parts + bot_state["character_choice"]
+            response = rebuild
+    response = response or default_response
     if "<random>" in response:
         response = random.choice(response.split("<random>"))
     if "<next_response>" in response:
         response, bot_state["next_response"] = response.split("<next_response>")
         bot_state["next_response_Flag"] = "True"
+    if bot_state["character_choice"] == "simba":
+        response = "Simba: "+ response
+    elif bot_state["character_choice"] == "scar":
+        response = "Scar: "+ response
 
     with open("bot_state.json", "w") as jsonFile:
         json.dump(bot_state, jsonFile)
@@ -84,7 +115,7 @@ def handle_command(command, channel):
     slack_client.api_call(
         "chat.postMessage",
         channel=channel,
-        text=response or default_response
+        text=response
     )
 
 
@@ -93,21 +124,22 @@ def get_response(user_input, corpus):
         keywords = key.split('<s>')
         keymach = 0
         for keyword in keywords:
-            if keyword.lower() not in user_input.lower():
+            if keyword.lower in list(user_input.lower().split(" ")):
+                keymach += 1
+            else:
                 break
-            keymach += 1
         if keymach == len(keywords):
             return corpus[key]
     return None
 
 
-def retrive_simba_response(user_input):
+def retrieve_simba_response(user_input):
     with open("simba_corpus.json", "r") as jsonFile:
         corpus = json.load(jsonFile)
     return get_response(user_input, corpus)
 
 
-def retrive_scar_response(user_input):
+def retrieve_scar_response(user_input):
     with open("scar_corpus.json", "r") as jsonFile:
         corpus = json.load(jsonFile)
     return get_response(user_input, corpus)

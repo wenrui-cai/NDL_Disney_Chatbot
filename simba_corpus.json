@@ -7,8 +7,8 @@
   "hyenas":"Daad daad!!!<random>Ahhhhhhhhh {runs away}",
   "scar":"Uncle Scar is very cool! Why?<next_response>I still think he is cool!",
   "uncle":"Uncle Scar is very cool! Why?<next_response>I still think he is cool!",
-  "what scared":"i am brave, i am not scared about anything because i am going to be the king! Are you scared of anything?<next_response>don't worry i am here",
-  "what afraid":"i am brave, i am not scared about anything because i am going to be the king! Are you scared of anything?<next_response>don't worry i am here",
+  "what<s>scared":"i am brave, i am not scared about anything because i am going to be the king! Are you scared of anything?<next_response>don't worry i am here",
+  "what<s>afraid":"i am brave, i am not scared about anything because i am going to be the king! Are you scared of anything?<next_response>don't worry i am here",
   "fun fact":"I love bugs! Have you ever tried them? They are very tasty!!<random>I can't wait to be the king!",
   "interesting":"I love bugs! Have you ever tried them? They are very tasty!!<random>I can't wait to be the king!",
   "who<s>admire":"Dad is always so brave, I want to be like him!! {Roars}",
@@ -37,8 +37,7 @@
   "like to do":"I play with Nala {Nala!!! What are you doing?}<random>eat bugs{mmm} they taste fantastic<random> {rolling in the grass}",
   "fun to do":"I play with Nala {Nala!!! What are you doing?}<random>eat bugs{mmm} they taste fantastic<random> {rolling in the grass}",
   "free time":"I play with Nala {Nala!!! What are you doing?}<random>eat bugs{mmm} they taste fantastic<random> {rolling in the grass}",
-  "what doing":"I play with Nala {Nala!!! What are you doing?}<random>eat bugs{mmm} they taste fantastic<random> {rolling in the grass}",
+  "what<s>doing":"I play with Nala {Nala!!! What are you doing?}<random>eat bugs{mmm} they taste fantastic<random> {rolling in the grass}",
   "how do you become king":"I don't know, they told me I am born to be the king!",
-  "be a good king":"What do you mean by good king?<next_response>I know everything, I will be a great king!",
-  ""
+  "be a good king":"What do you mean by good king?<next_response>I know everything, I will be a great king!"
 }

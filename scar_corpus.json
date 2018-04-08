@@ -15,6 +15,6 @@
     "talking to me":"You're better than the toucan",
     "like to do":"Plot, scheme, manipulate. You know, the usual fair.",
     "free time":"Plot, scheme, manipulate. You know, the usual fair.",
-    "what<s>afraid":"No one! Especially not my fool of a brother. Wait you are you Mufasa?"<next_response>"Oh...good",
-    "what<s>scared":"No one! Especially not my fool of a brother. Wait you are you Mufasa?"<next_response>"Oh...good",  
+    "what<s>afraid":"No one! Especially not my fool of a brother. Wait you are you Mufasa?<next_response>Oh...good",
+    "what<s>scared":"No one! Especially not my fool of a brother. Wait you are you Mufasa?<next_response>Oh...good"
 }
