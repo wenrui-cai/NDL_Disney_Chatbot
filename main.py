@@ -96,7 +96,7 @@ def handle_command(command, channel):
             rebuild = ""
             for parts in response[:-1]:
                 rebuild += parts + bot_state["character_choice"]
-            response = rebuild
+            response = rebuild + response[-1]
     response = response or default_response
     if "<random>" in response:
         response = random.choice(response.split("<random>"))
@@ -124,7 +124,9 @@ def get_response(user_input, corpus):
         keywords = key.split('<s>')
         keymach = 0
         for keyword in keywords:
-            if keyword.lower in list(user_input.lower().split(" ")):
+            if " " in keyword and keyword.lower() in user_input.lower():
+                keymach += 1
+            elif keyword.lower() in user_input.lower().split(" "):
                 keymach += 1
             else:
                 break
