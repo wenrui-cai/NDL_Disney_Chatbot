@@ -12,7 +12,7 @@ import tf_idf
 slack_client = SlackClient(credentials.SLACK_TOKEN)
 # starterbot's user ID in Slack: value is assigned after the bot starts up
 starterbot_id = None
-#test
+#test1
 # constants
 RTM_READ_DELAY = 1 # 1 second delay between reading from RTM
 MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
